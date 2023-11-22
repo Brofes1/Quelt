@@ -1,0 +1,4 @@
+﻿
+using Quelt;
+
+Main.RunGame();
