@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quelt
 {
@@ -145,7 +146,7 @@ namespace Quelt
             _currentKeyboardState = Keyboard.GetState();
 
             _previousMouseState = _currentMouseState;
-            _currentMouseState = Mouse.GetState(); 
+            _currentMouseState = Mouse.GetState();
 
             #region letters
             A.UpdateState(_currentKeyboardState.IsKeyDown(Keys.A), _previousKeyboardState.IsKeyDown(Keys.A));
@@ -269,6 +270,23 @@ namespace Quelt
             RightMouse.UpdateState(_currentMouseState.RightButton == ButtonState.Pressed, _previousMouseState.RightButton == ButtonState.Pressed);
             MiddleMouse.UpdateState(_currentMouseState.MiddleButton == ButtonState.Pressed, _previousMouseState.MiddleButton == ButtonState.Pressed);
             #endregion
+
+            if (LeftMouse.justPressed)
+            {
+                Main.gameObjects = Main.gameObjects.OrderBy(o => o.Location.Z).ToList();
+
+                foreach (GameObject gameObject in Main.gameObjects)
+                {
+                    if (gameObject.hitboxSize != null)
+                    {
+                        Vector2 hitboxSize = gameObject.hitboxSize ?? Vector2.Zero;
+                        if (new Rectangle((int)gameObject.Location.X, (int)gameObject.Location.Y, (int)hitboxSize.X, (int)hitboxSize.Y).Contains(mousePosition))
+                        {
+                            gameObject.OnClick();
+                        }
+                    }
+                }
+            }
         }
     }
 

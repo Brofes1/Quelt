@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quelt
 {
@@ -28,8 +30,6 @@ namespace Quelt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             ContentHandler.LoadTextures(Content);
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -39,19 +39,20 @@ namespace Quelt
 
             InputHandler.UpdateInput();
 
+            Main.gameObjects = Main.gameObjects.OrderBy(gameObject => -gameObject.Location.Z).ToList();
+
+            foreach (GameObject gameObject in Main.gameObjects)
+                gameObject.Update();
+            
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            Renderer.QueueTexture(ContentHandler.testImage, new Vector3(100, 100, 5), new Rectangle(10, 0, 40, 60), Renderer.noRotation, null, new Vector2(1, 1));
-            Renderer.QueueTexture(ContentHandler.testImage, new Vector3(100, 160, 5), null, Renderer.noRotation, null, new Vector2(1, 1));
-            if (InputHandler.A.justReleased)
-            {
-                Renderer.QueueTexture(ContentHandler.testImage, new Vector3(100, 220, 5), null, Renderer.ccwRotation, null, Vector2.One);
-            }
-
             Renderer.Render();
+
+            foreach (GameObject gameObject in Main.gameObjects)
+                gameObject.Render();
 
             base.Draw(gameTime);
         }
