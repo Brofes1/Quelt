@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Quelt
 {
@@ -15,8 +17,17 @@ namespace Quelt
 
         public static GameObject? overridingGameObject;
 
+        public static readonly string mainDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Snake", "Snake Game +");
+
         public static void RunGame()
         {
+            if (!Directory.Exists(mainDirectory))
+            {
+                Directory.CreateDirectory(mainDirectory);
+            }
+
+            DataFile dataFile = new DataFile(Path.Combine(mainDirectory, "test.json"));
+
             rootGameObject = GameObject.CreateBaseGameObject();
             _game = new Game1();
             _game.Run();
