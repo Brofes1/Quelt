@@ -39,9 +39,7 @@ namespace Quelt
 
             InputHandler.UpdateInput();
 
-            Main.gameObjects = Main.gameObjects.OrderBy(gameObject => -gameObject.Location.Z).ToList();
-
-            foreach (GameObject gameObject in Main.gameObjects)
+            foreach (GameObject gameObject in Main.gameObjectList)
                 gameObject.Update();
             
             base.Update(gameTime);
@@ -51,7 +49,7 @@ namespace Quelt
         {
             Renderer.Render();
 
-            foreach (GameObject gameObject in Main.gameObjects)
+            foreach (GameObject gameObject in Main.gameObjectList)
                 gameObject.Render();
 
             base.Draw(gameTime);

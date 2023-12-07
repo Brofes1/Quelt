@@ -13,11 +13,12 @@ namespace Quelt
         public static GraphicsDevice graphicsDevice { get { return _game.GraphicsDevice; } }
 
         public static GameObject rootGameObject;
-        public static List<GameObject> gameObjects = new List<GameObject>();
+        public static List<GameObject> gameObjectList = new List<GameObject>();
+        public static Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
 
         public static GameObject? overridingGameObject;
 
-        public static readonly string mainDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Snake", "Snake Game +");
+        public static readonly string mainDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "");
 
         public static void RunGame()
         {
@@ -26,8 +27,6 @@ namespace Quelt
                 Directory.CreateDirectory(mainDirectory);
             }
 
-            DataFile dataFile = new DataFile(Path.Combine(mainDirectory, "test.json"));
-
             rootGameObject = GameObject.CreateBaseGameObject();
             _game = new Game1();
             _game.Run();
@@ -35,7 +34,7 @@ namespace Quelt
 
         public static void RemoveGameObject(GameObject gameObject)
         {
-            gameObjects.Remove(gameObject);
+            gameObjectList.Remove(gameObject);
         }
     }
 }

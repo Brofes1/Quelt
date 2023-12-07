@@ -6,20 +6,36 @@ namespace Quelt
 {
     public class GameObject
     {
-        private static int currentID = 0;
+        private static uint _currentID = 0;
+        private static bool _baseGameObjectCreated = false;
+        
+        private readonly GameObject? _parent;
+        private Vector2? _hitboxSize;
 
-        private readonly GameObject? parent;
-
-        public readonly int internalID;
+        public readonly uint internalID;
         public readonly string externalID;
-        public Vector2? hitboxSize;
-        public Vector3 relativeLocation = new Vector3();
+        public Vector3 relativeLocation;
+
         public Vector3 Location
         {
             get
             {
-                if (parent == null) return this.relativeLocation;
-                else return relativeLocation + parent.Location;
+                if (this._parent == null) return this.relativeLocation;
+                else return relativeLocation + this._parent.Location;
+            }
+        }
+
+        public Rectangle Hitbox
+        {
+            get
+            {
+                if (_hitboxSize == null)
+                    return new Rectangle(0, 0, 0, 0);
+                else
+                {
+                    return new Rectangle((int)this.Location.X, (int)this.Location.Y, 
+                        (int)this._hitboxSize.X, (int)this._hitboxSize.Y);
+                }
             }
         }
 
@@ -27,35 +43,41 @@ namespace Quelt
 
         public virtual void Update() { }
 
-        public virtual void OnClick() { }
-
         private GameObject()
         {
-            this.parent = null;
+            this._parent = null;
             this.relativeLocation = new Vector3(0, 0, 0);
             this.externalID = "";
-            this.internalID = currentID++;
-            Main.gameObjects.Add(this);
+            this.internalID = _currentID++;
+            Main.gameObjectList.Add(this);
         }
 
-        public GameObject(GameObject parent) : this(parent, new Vector3(0, 0, 0), new Vector2(0, 0), "") { }
-        public GameObject(GameObject parent, string externalID) : this(parent, new Vector3(0, 0, 0), new Vector2(0, 0), externalID) { }
-        public GameObject(GameObject parent, Vector3 relativeLocation) : this(parent, relativeLocation, new Vector2(0, 0), "") { }
-        public GameObject(GameObject parent, Vector3 relativeLocation, string externalID) : this(parent, relativeLocation, new Vector2(0, 0), externalID) { }
-        public GameObject(GameObject parent, Vector3 relativeLocation, Vector2 hitboxSize) : this(parent, relativeLocation, hitboxSize, "") { }
+        public GameObject(GameObject _parent) : this(_parent, new Vector3(0, 0, 0), new Vector2(0, 0), "") { }
+        public GameObject(GameObject _parent, string externalID) : this(_parent, new Vector3(0, 0, 0), new Vector2(0, 0), externalID) { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation) : this(_parent, relativeLocation, new Vector2(0, 0), "") { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation, string externalID) : this(_parent, relativeLocation, new Vector2(0, 0), externalID) { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Vector2 _hitboxSize) : this(_parent, relativeLocation, _hitboxSize, "") { }
 
-        public GameObject(GameObject parent, Vector3 relativeLocation, Vector2 hitboxSize, string externalID)
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Vector2 _hitboxSize, string externalID)
         {
-            this.parent = parent;
+            this._parent = _parent;
             this.relativeLocation = relativeLocation;
             this.externalID = externalID;
-            this.internalID = currentID++;
-            this.hitboxSize = hitboxSize;
-            Main.gameObjects.Add(this);
+            this.internalID = _currentID++;
+            this._hitboxSize = _hitboxSize;
+
+            if (externalID != "")
+                Main.gameObjects.Add(externalID, this);
+
+            Main.gameObjectList.Add(this);
         }
 
         public static GameObject CreateBaseGameObject()
         {
+            if (_baseGameObjectCreated)
+                throw new System.Exception("Cannot create more than one base game object; what are you even doing?");
+
+            _baseGameObjectCreated = true;
             return new GameObject();
         }
     }

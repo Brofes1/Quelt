@@ -7,7 +7,7 @@ namespace Quelt
 {
     public static class InputHandler
     {
-        public static Dictionary<string, Button> keys = new Dictionary<string, Button>();
+        public static Dictionary<string, KeyButton> keys = new Dictionary<string, KeyButton>();
 
         static KeyboardState _currentKeyboardState = Keyboard.GetState();
         static KeyboardState _previousKeyboardState = Keyboard.GetState();
@@ -16,117 +16,117 @@ namespace Quelt
         static MouseState _previousMouseState = Mouse.GetState();
 
         #region letters
-        public static readonly Button A = new Button();
-        public static readonly Button B = new Button();
-        public static readonly Button C = new Button();
-        public static readonly Button D = new Button();
-        public static readonly Button E = new Button();
-        public static readonly Button F = new Button();
-        public static readonly Button G = new Button();
-        public static readonly Button H = new Button();
-        public static readonly Button I = new Button();
-        public static readonly Button J = new Button();
-        public static readonly Button K = new Button();
-        public static readonly Button L = new Button();
-        public static readonly Button M = new Button();
-        public static readonly Button N = new Button();
-        public static readonly Button O = new Button();
-        public static readonly Button P = new Button();
-        public static readonly Button Q = new Button();
-        public static readonly Button R = new Button();
-        public static readonly Button S = new Button();
-        public static readonly Button T = new Button();
-        public static readonly Button U = new Button();
-        public static readonly Button V = new Button();
-        public static readonly Button W = new Button();
-        public static readonly Button X = new Button();
-        public static readonly Button Y = new Button();
-        public static readonly Button Z = new Button();
+        public static readonly KeyButton A = new KeyButton();
+        public static readonly KeyButton B = new KeyButton();
+        public static readonly KeyButton C = new KeyButton();
+        public static readonly KeyButton D = new KeyButton();
+        public static readonly KeyButton E = new KeyButton();
+        public static readonly KeyButton F = new KeyButton();
+        public static readonly KeyButton G = new KeyButton();
+        public static readonly KeyButton H = new KeyButton();
+        public static readonly KeyButton I = new KeyButton();
+        public static readonly KeyButton J = new KeyButton();
+        public static readonly KeyButton K = new KeyButton();
+        public static readonly KeyButton L = new KeyButton();
+        public static readonly KeyButton M = new KeyButton();
+        public static readonly KeyButton N = new KeyButton();
+        public static readonly KeyButton O = new KeyButton();
+        public static readonly KeyButton P = new KeyButton();
+        public static readonly KeyButton Q = new KeyButton();
+        public static readonly KeyButton R = new KeyButton();
+        public static readonly KeyButton S = new KeyButton();
+        public static readonly KeyButton T = new KeyButton();
+        public static readonly KeyButton U = new KeyButton();
+        public static readonly KeyButton V = new KeyButton();
+        public static readonly KeyButton W = new KeyButton();
+        public static readonly KeyButton X = new KeyButton();
+        public static readonly KeyButton Y = new KeyButton();
+        public static readonly KeyButton Z = new KeyButton();
         #endregion
 
         #region numbers
-        public static Button Zero = new Button();
-        public static Button One = new Button();
-        public static Button Two = new Button();
-        public static Button Three = new Button();
-        public static Button Four = new Button();
-        public static Button Five = new Button();
-        public static Button Six = new Button();
-        public static Button Seven = new Button();
-        public static Button Eight = new Button();
-        public static Button Nine = new Button();
+        public static KeyButton Zero = new KeyButton();
+        public static KeyButton One = new KeyButton();
+        public static KeyButton Two = new KeyButton();
+        public static KeyButton Three = new KeyButton();
+        public static KeyButton Four = new KeyButton();
+        public static KeyButton Five = new KeyButton();
+        public static KeyButton Six = new KeyButton();
+        public static KeyButton Seven = new KeyButton();
+        public static KeyButton Eight = new KeyButton();
+        public static KeyButton Nine = new KeyButton();
         #endregion
 
         #region special
-        public static Button Tab = new Button();
-        public static Button Caps = new Button();
-        public static Button LShift = new Button();
-        public static Button LControl = new Button();
-        public static Button LAlt = new Button();
-        public static Button RAlt = new Button();
-        public static Button RCtrl = new Button();
-        public static Button RShift = new Button();
-        public static Button Enter = new Button();
-        public static Button Backspace = new Button();
-        public static Button Esc = new Button();
+        public static KeyButton Tab = new KeyButton();
+        public static KeyButton Caps = new KeyButton();
+        public static KeyButton LShift = new KeyButton();
+        public static KeyButton LControl = new KeyButton();
+        public static KeyButton LAlt = new KeyButton();
+        public static KeyButton RAlt = new KeyButton();
+        public static KeyButton RCtrl = new KeyButton();
+        public static KeyButton RShift = new KeyButton();
+        public static KeyButton Enter = new KeyButton();
+        public static KeyButton Backspace = new KeyButton();
+        public static KeyButton Esc = new KeyButton();
         #endregion
 
         #region other
-        public static Button Backquote = new Button();
-        public static Button Comma = new Button();
-        public static Button Period = new Button();
-        public static Button Slash = new Button();
-        public static Button Semicolon = new Button();
-        public static Button Quote = new Button();
-        public static Button OpenBracket = new Button();
-        public static Button CloseBracket = new Button();
-        public static Button Backslash = new Button();
-        public static Button Minus = new Button();
-        public static new Button Equals = new Button();
+        public static KeyButton Backquote = new KeyButton();
+        public static KeyButton Comma = new KeyButton();
+        public static KeyButton Period = new KeyButton();
+        public static KeyButton Slash = new KeyButton();
+        public static KeyButton Semicolon = new KeyButton();
+        public static KeyButton Quote = new KeyButton();
+        public static KeyButton OpenBracket = new KeyButton();
+        public static KeyButton CloseBracket = new KeyButton();
+        public static KeyButton Backslash = new KeyButton();
+        public static KeyButton Minus = new KeyButton();
+        public static new KeyButton Equals = new KeyButton();
         #endregion
 
         #region function
-        public static Button FunctionOne = new Button();
-        public static Button FunctionTwo = new Button();
-        public static Button FunctionThree = new Button();
-        public static Button FunctionFour = new Button();
-        public static Button FunctionFive = new Button();
-        public static Button FunctionSix = new Button();
-        public static Button FunctionSeven = new Button();
-        public static Button FunctionEight = new Button();
-        public static Button FunctionNine = new Button();
-        public static Button FunctionTen = new Button();
-        public static Button FunctionEleven = new Button();
-        public static Button FunctionTwelve = new Button();
+        public static KeyButton FunctionOne = new KeyButton();
+        public static KeyButton FunctionTwo = new KeyButton();
+        public static KeyButton FunctionThree = new KeyButton();
+        public static KeyButton FunctionFour = new KeyButton();
+        public static KeyButton FunctionFive = new KeyButton();
+        public static KeyButton FunctionSix = new KeyButton();
+        public static KeyButton FunctionSeven = new KeyButton();
+        public static KeyButton FunctionEight = new KeyButton();
+        public static KeyButton FunctionNine = new KeyButton();
+        public static KeyButton FunctionTen = new KeyButton();
+        public static KeyButton FunctionEleven = new KeyButton();
+        public static KeyButton FunctionTwelve = new KeyButton();
         #endregion
 
         #region arrows
-        public static Button UpArrow = new Button();
-        public static Button LeftArrow = new Button();
-        public static Button DownArrow = new Button();
-        public static Button RightArrow = new Button();
+        public static KeyButton UpArrow = new KeyButton();
+        public static KeyButton LeftArrow = new KeyButton();
+        public static KeyButton DownArrow = new KeyButton();
+        public static KeyButton RightArrow = new KeyButton();
         #endregion
 
         #region movement
-        public static Button Insert = new Button();
-        public static Button Delete = new Button();
-        public static Button Home = new Button();
-        public static Button End = new Button();
-        public static Button PageUp = new Button();
-        public static Button PageDown = new Button();
+        public static KeyButton Insert = new KeyButton();
+        public static KeyButton Delete = new KeyButton();
+        public static KeyButton Home = new KeyButton();
+        public static KeyButton End = new KeyButton();
+        public static KeyButton PageUp = new KeyButton();
+        public static KeyButton PageDown = new KeyButton();
         #endregion
 
         #region numpad
-        public static Button NumpadZero = new Button();
-        public static Button NumpadOne = new Button();
-        public static Button NumpadTwo = new Button();
-        public static Button NumpadThree = new Button();
-        public static Button NumpadFour = new Button();
-        public static Button NumpadFive = new Button();
-        public static Button NumpadSix = new Button();
-        public static Button NumpadSeven = new Button();
-        public static Button NumpadEight = new Button();
-        public static Button NumpadNine = new Button();
+        public static KeyButton NumpadZero = new KeyButton();
+        public static KeyButton NumpadOne = new KeyButton();
+        public static KeyButton NumpadTwo = new KeyButton();
+        public static KeyButton NumpadThree = new KeyButton();
+        public static KeyButton NumpadFour = new KeyButton();
+        public static KeyButton NumpadFive = new KeyButton();
+        public static KeyButton NumpadSix = new KeyButton();
+        public static KeyButton NumpadSeven = new KeyButton();
+        public static KeyButton NumpadEight = new KeyButton();
+        public static KeyButton NumpadNine = new KeyButton();
         #endregion
 
         #region mouse
@@ -135,9 +135,19 @@ namespace Quelt
         
         public static Vector2 mousePositionChange { get { return mousePosition - previousMousePosition; } }
         
-        public static Button LeftMouse = new Button();
-        public static Button RightMouse = new Button();
-        public static Button MiddleMouse = new Button();
+        public static KeyButton LeftMouse = new KeyButton();
+        public static KeyButton RightMouse = new KeyButton();
+        public static KeyButton MiddleMouse = new KeyButton();
+
+        static GameObject? _objectMouseOver = null;
+        static bool mouseOverGameObject = false;
+        public static GameObject objectMouseOver
+        {
+            get
+            {
+                return _objectMouseOver ?? Main.rootGameObject;
+            }
+        }
         #endregion
 
         public static void UpdateInput()
@@ -269,28 +279,20 @@ namespace Quelt
             LeftMouse.UpdateState(_currentMouseState.LeftButton == ButtonState.Pressed, _previousMouseState.LeftButton == ButtonState.Pressed);
             RightMouse.UpdateState(_currentMouseState.RightButton == ButtonState.Pressed, _previousMouseState.RightButton == ButtonState.Pressed);
             MiddleMouse.UpdateState(_currentMouseState.MiddleButton == ButtonState.Pressed, _previousMouseState.MiddleButton == ButtonState.Pressed);
-            #endregion
-
-            if (LeftMouse.justPressed)
+            
+            Main.gameObjectList = Main.gameObjectList.OrderBy(o => -o.Location.Z).ToList();
+            
+            foreach (GameObject gameObject in Main.gameObjectList)
             {
-                Main.gameObjects = Main.gameObjects.OrderBy(o => o.Location.Z).ToList();
-
-                foreach (GameObject gameObject in Main.gameObjects)
-                {
-                    if (gameObject.hitboxSize != null)
-                    {
-                        Vector2 hitboxSize = gameObject.hitboxSize ?? Vector2.Zero;
-                        if (new Rectangle((int)gameObject.Location.X, (int)gameObject.Location.Y, (int)hitboxSize.X, (int)hitboxSize.Y).Contains(mousePosition))
-                        {
-                            gameObject.OnClick();
-                        }
-                    }
-                }
+                if (gameObject.Hitbox.Contains(mousePosition))
+                    objectMouseOver = gameObject;
             }
+
+            #endregion
         }
     }
 
-    public class Button
+    public class KeyButton
     {
         public bool pressed = false;
         public bool justPressed = false;
