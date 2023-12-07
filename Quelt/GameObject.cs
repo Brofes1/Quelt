@@ -10,7 +10,7 @@ namespace Quelt
         private static bool _baseGameObjectCreated = false;
         
         private readonly GameObject? _parent;
-        private Vector2? _hitboxSize;
+        private Rectangle _hitbox;
 
         public readonly uint internalID;
         public readonly string externalID;
@@ -29,13 +29,8 @@ namespace Quelt
         {
             get
             {
-                if (_hitboxSize == null)
-                    return new Rectangle(0, 0, 0, 0);
-                else
-                {
-                    return new Rectangle((int)this.Location.X, (int)this.Location.Y, 
-                        (int)this._hitboxSize.X, (int)this._hitboxSize.Y);
-                }
+                return new Rectangle(this.Location.X + this._hitbox.Left, this.Location.Y + this._hitbox.Top,
+                    this._hitbox.Size.ToVector2().X, this._hitbox.Size.ToVector2().Y);
             }
         }
 
@@ -52,19 +47,19 @@ namespace Quelt
             Main.gameObjectList.Add(this);
         }
 
-        public GameObject(GameObject _parent) : this(_parent, new Vector3(0, 0, 0), new Vector2(0, 0), "") { }
-        public GameObject(GameObject _parent, string externalID) : this(_parent, new Vector3(0, 0, 0), new Vector2(0, 0), externalID) { }
-        public GameObject(GameObject _parent, Vector3 relativeLocation) : this(_parent, relativeLocation, new Vector2(0, 0), "") { }
-        public GameObject(GameObject _parent, Vector3 relativeLocation, string externalID) : this(_parent, relativeLocation, new Vector2(0, 0), externalID) { }
-        public GameObject(GameObject _parent, Vector3 relativeLocation, Vector2 _hitboxSize) : this(_parent, relativeLocation, _hitboxSize, "") { }
+        public GameObject(GameObject _parent) : this(_parent, new Vector3(0, 0, 0), new Rectangle(0, 0, 0, 0), "") { }
+        public GameObject(GameObject _parent, string externalID) : this(_parent, new Vector3(0, 0, 0), new Rectangle(0, 0, 0, 0), externalID) { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation) : this(_parent, relativeLocation, new Rectangle(0, 0, 0, 0), "") { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation, string externalID) : this(_parent, relativeLocation, new Rectangle(0, 0, 0, 0), externalID) { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle _hitbox) : this(_parent, relativeLocation, _hitbox, "") { }
 
-        public GameObject(GameObject _parent, Vector3 relativeLocation, Vector2 _hitboxSize, string externalID)
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle _hitbox, string externalID)
         {
             this._parent = _parent;
             this.relativeLocation = relativeLocation;
             this.externalID = externalID;
             this.internalID = _currentID++;
-            this._hitboxSize = _hitboxSize;
+            this._hitbox = _hitbox;
 
             if (externalID != "")
                 Main.gameObjects.Add(externalID, this);

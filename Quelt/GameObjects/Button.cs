@@ -28,7 +28,8 @@ namespace Quelt
 
         public override void Render()
         {
-
+            if (Texture2D != null)
+                Renderer.QueueTexture(this._texture ?? new Texture2D(), this.Location, null, 0f, Renderer.noRotation, Vector2.One);
         }
     }
 }
