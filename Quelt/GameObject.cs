@@ -29,8 +29,8 @@ namespace Quelt
         {
             get
             {
-                return new Rectangle(this.Location.X + this._hitbox.Left, this.Location.Y + this._hitbox.Top,
-                    this._hitbox.Size.ToVector2().X, this._hitbox.Size.ToVector2().Y);
+                return new Rectangle((int)this.Location.X + this._hitbox.Left, (int)this.Location.Y + this._hitbox.Top,
+                    (int)this._hitbox.Size.ToVector2().X, (int)this._hitbox.Size.ToVector2().Y);
             }
         }
 
@@ -51,15 +51,15 @@ namespace Quelt
         public GameObject(GameObject _parent, string externalID) : this(_parent, new Vector3(0, 0, 0), new Rectangle(0, 0, 0, 0), externalID) { }
         public GameObject(GameObject _parent, Vector3 relativeLocation) : this(_parent, relativeLocation, new Rectangle(0, 0, 0, 0), "") { }
         public GameObject(GameObject _parent, Vector3 relativeLocation, string externalID) : this(_parent, relativeLocation, new Rectangle(0, 0, 0, 0), externalID) { }
-        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle _hitbox) : this(_parent, relativeLocation, _hitbox, "") { }
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle? _hitbox) : this(_parent, relativeLocation, _hitbox, "") { }
 
-        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle _hitbox, string externalID)
+        public GameObject(GameObject _parent, Vector3 relativeLocation, Rectangle? _hitbox, string externalID)
         {
             this._parent = _parent;
             this.relativeLocation = relativeLocation;
             this.externalID = externalID;
             this.internalID = _currentID++;
-            this._hitbox = _hitbox;
+            this._hitbox = _hitbox ?? new Rectangle(0, 0, 0, 0);
 
             if (externalID != "")
                 Main.gameObjects.Add(externalID, this);

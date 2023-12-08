@@ -285,7 +285,7 @@ namespace Quelt
             foreach (GameObject gameObject in Main.gameObjectList)
             {
                 if (gameObject.Hitbox.Contains(mousePosition))
-                    objectMouseOver = gameObject;
+                    _objectMouseOver = gameObject;
             }
 
             #endregion

@@ -30,6 +30,10 @@ namespace Quelt
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             ContentHandler.LoadTextures(Content);
+
+            Text test = new Text(Main.rootGameObject, new Vector3(50, 50, 25), ContentHandler.testFont, TextSnap.topLeft, "This is a <C:#00ff00>green</C> word!\\nHere's a newline, too!", 60, null);
+
+            int i = 1;
         }
 
         protected override void Update(GameTime gameTime)
