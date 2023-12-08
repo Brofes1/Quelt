@@ -29,14 +29,14 @@ namespace Quelt
 
         public static void QueueTexture(Texture2D texture, Vector3 location, Rectangle? drawRange, double rotation, Color? color, Vector2 scale)
         {
-            renderInstructions.Add(new RenderInstruction(texture,
+            renderInstructions.Add(new TextureInstruction(texture,
                 new Vector3((location.X + (texture.Bounds.Size.ToVector2() / 2).X) * scale.X, (location.Y + (texture.Bounds.Size.ToVector2() / 2).Y) * scale.Y, location.Z),
                 drawRange, rotation, texture.Bounds.Size.ToVector2() / 2, color ?? Color.White, scale));
         }
 
-        public static void QueueText()
+        public static void QueueText(SpriteFont spriteFont, StringBuilder stringBuilder, Vector3 location, double rotation, Color? color, float scale)
         {
-
+            renderInstructions.Add(new TextInstruction(spriteFont, stringBuilder, location, 0f, Vector2.Zero, color ?? Color.White, scale));
         }
 
         public static void Render()
@@ -47,21 +47,7 @@ namespace Quelt
             renderInstructions = renderInstructions.OrderBy(o => o.location.Z).ToList();
 
             foreach (RenderInstruction instruction in renderInstructions)
-            {
-                if (instruction.drawRange != null)
-                {
-                    Main.spriteBatch.Draw(instruction.texture, new Vector2(instruction.location.X + (instruction.drawRange.Value.X * instruction.scale.X), 
-                                                instruction.location.Y + (instruction.drawRange.Value.Y * instruction.scale.Y)),
-                                                instruction.drawRange, instruction.color, (float)instruction.rotation, instruction.origin,
-                                                instruction.scale, SpriteEffects.None, 0f);
-                }
-                else
-                {
-                    Main.spriteBatch.Draw(instruction.texture, new Vector2(instruction.location.X, instruction.location.Y),
-                                                instruction.drawRange, instruction.color, (float)instruction.rotation, instruction.origin,
-                                                instruction.scale, SpriteEffects.None, 0f);
-                }
-            }
+                instruction.Render();
 
             Main.spriteBatch.End();
             renderInstructions.Clear();
@@ -70,23 +56,71 @@ namespace Quelt
 
     public class RenderInstruction
     {
-        public Texture2D texture;
-        public Vector3 location;
-        public Rectangle? drawRange;
-        public double rotation;
-        public Vector2 origin;
-        public Color color;
-        public Vector2 scale;
+        Vector3 location;
+        double rotation;
+        Vector2 origin;
+        Color color;
 
-        public RenderInstruction(Texture2D texture, Vector3 location, Rectangle? drawRange, double rotation, Vector2 origin, Color color, Vector2 scale)
+        internal RenderInstruction(Vector3 location, double rotation, Vector2 origin, Color color)
         {
-            this.texture = texture;
             this.location = location;
-            this.drawRange = drawRange;
             this.rotation = rotation;
             this.origin = origin;
             this.color = color;
+        }
+
+        public abstract void Render() { }
+    }
+
+    public class TextureInstruction : RenderInstruction
+    {
+        Texture2D texture;
+        Rectangle? drawRange;
+        Vector2 scale;
+
+        public TextureInstruction(Texture2D texture, Vector3 location, Rectangle? drawRange, double rotation, Vector2 origin, Color color, Vector2 scale) : base(location, rotation, origin, color)
+        {
+            this.texture = texture;
+            this.drawRange = drawRange;
             this.scale = scale;
+        }
+
+        public override void Render()
+        {
+            if (this.drawRange != null)
+                {
+                    Main.spriteBatch.Draw(this.texture, new Vector2(this.location.X + (this.drawRange.Value.X * this.scale.X), 
+                                                this.location.Y + (this.drawRange.Value.Y * this.scale.Y)),
+                                                this.drawRange, this.color, (float)this.rotation, this.origin,
+                                                this.scale, SpriteEffects.None, 0f);
+                }
+                else
+                {
+                    Main.spriteBatch.Draw(this.texture, new Vector2(this.location.X, this.location.Y),
+                                                this.drawRange, this.color, (float)this.rotation, this.origin,
+                                                this.scale, SpriteEffects.None, 0f);
+                }
+        }
+    }
+
+    public class TextInstruction : RenderInstruction
+    {
+        SpriteFont spriteFont;
+        StringBuilder stringBuilder;
+        float scale;
+
+        public TextInstruction(SpriteFont spriteFont, StringBuilder stringBuilder, Vector3 location, 
+            double rotation, Vector2 origin, Color color, float scale) : base(location, rotation, origin, scale)
+        {
+            this.spriteFont = spriteFont;
+            this.stringBuilder = stringBuilder;
+            this.location = location;
+        }
+
+        public override void Render()
+        {
+            Main.spriteBatch.DrawString(this.spriteFont, this.stringBuilder, new Vector2(this.location.X, this.location.Y), 
+                this.color, (float)this.rotation, this.origin, new Vector2(this.scale), SpriteEffects.None, 0f, false);
         }
     }
 }
